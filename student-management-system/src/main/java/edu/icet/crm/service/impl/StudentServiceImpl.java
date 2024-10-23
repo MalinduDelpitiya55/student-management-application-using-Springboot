@@ -48,6 +48,8 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public Student retriveStudentById(Integer studentId) {
         Optional<StudentEntity> student = jpaRepository.findById(studentId);
+        if (student.isEmpty())
+            throw new StudentNotFoundException("Student not found");
         return mapper.convertValue(student,Student.class);
     }
 
